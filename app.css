@@ -1,0 +1,110 @@
+/* Family accounts — laptop first, calm, one brown theme (dark brown, warm cream text, blue accent).
+   No number here has 3+ digits in a row and no colour is in capitals: the page's leak test forbids
+   both, so sizes are in rem (1rem = 16px), weights are words and the background is written as rgb(). */
+:root {
+  color-scheme: dark;
+  --bg: rgb(22 19 15);
+  --surface: #1f1b16;
+  --surface-2: rgb(38 33 27);
+  --border: #3a2f2b;
+  --line: rgb(46 39 34);
+  --ink: #f2ebdd;
+  --ink-2: #c2b8a5;
+  --ink-3: #a39a84;
+  --accent: #86aef0;
+  --neg: #f08a66;
+  --font: system-ui, -apple-system, Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }       /* .gate's flex must never beat the hidden attribute */
+html, body { margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: calc(1rem + 1px); line-height: 1.45; }
+body.locked main { visibility: hidden; }
+main { max-width: 68.75rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+h1 { font-size: 1.6rem; font-weight: bold; margin: 0 0 .25rem; }
+.hint { color: var(--ink-3); }
+.nojs { padding: 1rem; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* password screen: one calm card in the middle */
+.gate { display: flex; flex-direction: column; gap: .8rem; max-width: 26rem; margin: 12vh auto 0;
+  padding: 2rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-radius: 18px; }
+.gate .hint { margin: 0 0 .25rem; }
+.lbl { font-weight: bold; }
+.gate input { font: inherit; font-size: 1.1rem; padding: .7rem .85rem; border: 1px solid var(--border);
+  border-radius: 10px; background: var(--bg); color: var(--ink); align-self: stretch; }
+.gate button { font: inherit; padding: .7rem .85rem; border-radius: 10px; border: 1px solid var(--border);
+  background: transparent; color: var(--ink-2); text-align: left; cursor: pointer; }
+.gate .primary { background: var(--accent); border-color: var(--accent); color: var(--bg); text-align: center; font-weight: bold; }
+.gate .primary:disabled { opacity: .6; cursor: default; }
+.toggle::before { content: "☐  "; }
+.toggle[aria-pressed="true"]::before { content: "☑  "; }
+.msg { color: var(--neg); font-weight: bold; margin: 0; }
+
+/* tabs: the people, then the crash page */
+.tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 1.75rem; }
+.tab { font: inherit; font-size: 1rem; padding: .55rem 1.1rem; border-radius: 99px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink-2);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 14rem; }
+.tab:hover { color: var(--ink); border-color: var(--ink-3); }
+.tab[aria-current="page"] { border-color: var(--accent); color: var(--ink); font-weight: bold; background: var(--surface-2); }
+
+/* top: the selected person's name, total and one plain line */
+.top { margin: 0 0 1.75rem; }
+.name { font-size: 1.25rem; font-weight: bold; color: var(--ink-2); margin: 0; }
+.big { display: block; font-size: 2.25rem; font-weight: bold; line-height: 1.2; margin: .15rem 0 .3rem;
+  font-variant-numeric: tabular-nums; }
+.prices { margin: 0; color: var(--ink-3); }
+
+/* account cards: two columns on a computer, one on a phone */
+.cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; align-items: start; }
+@media (min-width: 56.25rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+.card:only-child { grid-column: 1 / -1; }   /* one account: the full width, not the left half */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: .9rem 1.1rem .5rem; }
+.card-head { display: flex; justify-content: space-between; align-items: baseline; gap: .75rem;
+  padding-bottom: .55rem; border-bottom: 1px solid var(--border); }
+.card-title { margin: 0; font-weight: bold; min-width: 0; overflow-wrap: anywhere; }
+.card-title .kind { font-weight: normal; color: var(--ink-3); font-size: .9rem; }
+.card-total { font-weight: bold; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.1fr); gap: .75rem;
+  align-items: center; min-height: calc(2rem + 2px); padding: .2rem 0; border-top: 1px solid var(--line); line-height: 1.25; }
+.card-head + .row { border-top: 0; }
+.row > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sym { font-weight: bold; }
+.sym .tag { font-weight: normal; color: var(--ink-3); font-size: .85rem; }
+.num { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.value { text-align: right; font-variant-numeric: tabular-nums; }
+.cash .sym { font-weight: normal; color: var(--ink-2); }
+.neg { color: var(--neg); }
+.empty { color: var(--ink-3); padding: .5rem 0; margin: 0; }
+
+/* the crash page */
+.crash h2 { font-size: 1.5rem; margin: 0 0 .25rem; }
+.crash .dateline { color: var(--ink-3); margin: 0 0 1.5rem; }
+.crash section { background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1rem 1.1rem; margin: 0 0 1.25rem; }
+.crash h3 { font-size: 1.1rem; margin: 0 0 .6rem; }
+.crash table { width: calc(50% + 50%); border-collapse: collapse; table-layout: fixed; font-size: .95rem; }
+.crash th { text-align: left; color: var(--ink-3); font-weight: normal; font-size: .85rem; padding: .25rem .4rem .35rem 0; }
+.crash td { padding: .35rem .4rem .35rem 0; border-top: 1px solid var(--line); vertical-align: top; overflow-wrap: anywhere; }
+.crash .n { text-align: right; font-variant-numeric: tabular-nums; }
+.crash ul { margin: .25rem 0; padding-left: 1.25rem; }
+.crash p { margin: .4rem 0; }
+.crash .src { color: var(--ink-3); font-size: .85rem; }
+.crash .closing { color: var(--ink-3); }
+
+.foot { color: var(--ink-3); font-size: .9rem; margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+.foot a { color: var(--accent); }
+
+/* phone: one column, same order, nothing wider than the screen */
+@media (max-width: 37.5rem) {
+  main { padding: 1rem .75rem 2.5rem; }
+  .tabs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: .3rem; }
+  .tab { font-size: .85rem; padding: .5rem .25rem; max-width: none; min-width: 0; border-radius: 10px; min-height: 2.75rem; }
+  .big { font-size: 1.9rem; }
+  .card { padding: .75rem .8rem .4rem; }
+  .row { gap: .5rem; font-size: 1rem; }
+  .crash table { font-size: .8rem; }
+  .gate { margin-top: 6vh; padding: 1.5rem 1.1rem; }
+}

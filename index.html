@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Family accounts</title>
+<link rel="stylesheet" href="app.css">
+<script src="app.js" defer></script>
+</head>
+<body class="locked">
+<noscript><p class="nojs">This page needs JavaScript.</p></noscript>
+<main>
+  <section id="gate" class="gate">
+    <h1>Family accounts</h1>
+    <p class="hint">Type the password to open the page.</p>
+    <label for="pw" class="lbl">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" autocapitalize="none" autocorrect="off" spellcheck="false">
+    <button id="remember" type="button" class="toggle" aria-pressed="false">Remember on this device</button>
+    <button id="open" type="button" class="primary">Open</button>
+    <p id="msg" class="msg" role="alert" hidden></p>
+  </section>
+  <section id="view" class="view" hidden>
+    <nav id="tabs" class="tabs" aria-label="People"></nav>
+    <div id="top" class="top"></div>
+    <div id="cards" class="cards"></div>
+    <div id="crash" class="crash" hidden></div>
+    <p class="foot"><span id="made"></span> <a href="#" id="forget" hidden>Forget this device</a></p>
+  </section>
+</main>
+</body>
+</html>
